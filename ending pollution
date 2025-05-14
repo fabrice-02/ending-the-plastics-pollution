@@ -1,0 +1,4138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plastic Prevention Guidelines - EndPollution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #e8f5e9;
+      color: #333;
+    }
+
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+    }
+
+    .column {
+      background: white;
+      flex: 1;
+      min-width: 300px;
+      margin: 10px;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 128, 0, 0.1);
+    }
+
+    .column h2 {
+      color: #1b5e20;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .category {
+      background-color: #43a047;
+      color: white;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 1.2em;
+      transition: 0.3s;
+    }
+
+    .category:hover {
+      background-color: #2e7d32;
+    }
+
+    .guideline {
+      background-color: #f1f8e9;
+      padding: 10px;
+      border-left: 4px solid #66bb6a;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .guideline:hover {
+      background-color: #e8f5e9;
+    }
+
+    .details {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f9fbe7;
+      border-radius: 6px;
+      border-left: 4px solid #ffeb3b;
+    }
+
+    .details h4 {
+      margin-bottom: 10px;
+    }
+
+    .details p {
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+<header>🛑 Plastic Prevention Guidelines - EndPollution</header>
+
+<div class="container">
+ 
+  <!-- Categories Section -->
+  <div class="column">
+    <h2>Categories</h2>
+    <div class="category" onclick="toggleCategory('wasteManagement')">
+      Waste Management
+    </div>
+    <div class="category" onclick="toggleCategory('recycling')">
+      Recycling Programs
+    </div>
+    <div class="category" onclick="toggleCategory('education')">
+      Education & Awareness
+    </div>
+    <div class="category" onclick="toggleCategory('alternatives')">
+      Biodegradable Alternatives
+    </div>
+    <div class="category" onclick="toggleCategory('legislation')">
+      Plastic Waste Legislation
+    </div>
+  </div>
+
+  <!-- Guidelines Section -->
+  <div class="column" id="guidelinesContainer">
+    <!-- Content will be dynamically loaded here -->
+  </div>
+
+</div>
+
+<script>
+  const guidelines = {
+    wasteManagement: [
+      {
+        title: "Reduce Single-Use Plastics",
+        description: "Focus on reducing the use of single-use plastics by encouraging reusable items like bags, bottles, and containers.",
+        implementation: "Offer incentives for using reusable items and ban single-use plastics in public spaces."
+      },
+      {
+        title: "Proper Waste Segregation",
+        description: "Encourage people to sort their waste at the source to improve the recycling process and reduce contamination.",
+        implementation: "Provide clearly labeled bins for recycling and general waste, and educate citizens on proper waste segregation."
+      }
+    ],
+    recycling: [
+      {
+        title: "Promote Recycling Programs",
+        description: "Establish or improve recycling facilities and programs in communities to encourage plastic waste recycling.",
+        implementation: "Provide bins, organize community recycling events, and incentivize plastic separation."
+      },
+      {
+        title: "Implement Deposit Return Schemes",
+        description: "Implement deposit return schemes for plastic bottles to encourage recycling.",
+        implementation: "Offer a small refund when plastic bottles are returned to collection centers or vending machines."
+      }
+    ],
+    education: [
+      {
+        title: "Educate the Public on Plastic Pollution",
+        description: "Raise awareness about the harmful effects of plastic pollution and educate people on proper waste management.",
+        implementation: "Host workshops, distribute flyers, and use media campaigns to spread awareness."
+      },
+      {
+        title: "Educational Campaigns for Schools",
+        description: "Introduce programs and materials in schools to teach students about plastic pollution and its effects.",
+        implementation: "Partner with schools to create educational materials and hold environmental events and cleanup drives."
+      }
+    ],
+    alternatives: [
+      {
+        title: "Support Biodegradable Alternatives",
+        description: "Encourage businesses to use biodegradable alternatives to plastic packaging.",
+        implementation: "Provide subsidies or tax breaks for businesses that use sustainable packaging alternatives."
+      },
+      {
+        title: "Ban Non-Biodegradable Plastics",
+        description: "Introduce legislation that bans certain non-biodegradable plastic products.",
+        implementation: "Ban items like plastic straws, cutlery, and certain plastic bags in favor of eco-friendly alternatives."
+      }
+    ],
+    legislation: [
+      {
+        title: "Enforce Plastic Waste Legislation",
+        description: "Introduce laws that ban or limit the production, sale, and use of harmful plastic products.",
+        implementation: "Enforce stricter regulations and fines for companies or individuals who violate these laws."
+      },
+      {
+        title: "Extended Producer Responsibility (EPR)",
+        description: "Make producers responsible for the entire lifecycle of plastic products, including recycling and waste management.",
+        implementation: "Require companies to collect and recycle plastic products after their use or at the end of their life."
+      }
+    ]
+  };
+
+  function toggleCategory(category) {
+    const container = document.getElementById('guidelinesContainer');
+    container.innerHTML = ''; // Clear existing content
+
+    // Dynamically add guidelines based on the category
+    guidelines[category].forEach(guideline => {
+      const guidelineElement = document.createElement('div');
+      guidelineElement.classList.add('guideline');
+      guidelineElement.innerHTML = `
+        <h4>${guideline.title}</h4>
+        <p>${guideline.description}</p>
+        <button onclick="showDetails('${category}', '${guideline.title}')">See Full Details</button>
+        <div class="details" id="${category}-${guideline.title.replace(/\s+/g, '')}Details">
+          <p><strong>Implementation:</strong> ${guideline.implementation}</p>
+        </div>
+      `;
+      container.appendChild(guidelineElement);
+    });
+  }
+
+  function showDetails(category, title) {
+    const details = document.getElementById(`${category}-${title.replace(/\s+/g, '')}Details`);
+    details.style.display = details.style.display === 'none' || details.style.display === '' ? 'block' : 'none';
+  }
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Government - EndPollution</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e8f5e9;
+      color: #1b5e20;
+    }
+    .navbar {
+      background-color: #2e7d32;
+    }
+    .navbar-brand {
+      color: white;
+      font-weight: bold;
+    }
+    .content {
+      padding: 2rem;
+    }
+    .section-title {
+      color: #2e7d32;
+      font-weight: bold;
+      margin-top: 1.5rem;
+    }
+    .card {
+      border: none;
+      background-color: #c8e6c9;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">⬅ Back to Home</a>
+    </div>
+  </nav>
+
+  <div class="container content">
+    <h2>🌍 Government</h2>
+    <p>Empowering national and local governments to implement plastic waste policies, support innovation, and drive sustainable development.</p>
+
+    <h4 class="section-title">📜 Regulations & Policy Support</h4>
+   <div class="regulations-container">
+  <!-- Top Title -->
+  <h1>Regulations & Policy Support</h1>
+
+  <!-- Overview Section -->
+  <section class="overview">
+    <h2>📘 Plastic Pollution Laws in Rwanda and Globally</h2>
+    <p>Rwanda banned plastic bags in 2008 and extended restrictions in 2019 to cover more single-use plastics. Globally, initiatives like the UN Plastics Treaty and African Union directives support similar goals.</p>
+    <button>Learn More</button>
+  </section>
+
+  <!-- Swipeable Laws Section (You can later replace this with a slider) -->
+  <section class="key-laws">
+    <h2>⚖️ Key Laws & Provisions</h2>
+
+    <div class="card">
+      <h3>❌ Banned Items</h3>
+      <ul>
+        <li>Plastic bags</li>
+        <li>Plastic straws & cutlery</li>
+        <li>Plastic packaging</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>✅ Allowed Alternatives</h3>
+      <ul>
+        <li>Biodegradable bags</li>
+        <li>Paper and fabric packaging</li>
+        <li>Reusable containers</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📅 Compliance Timeline</h3>
+      <p>Stay updated with grace periods and deadlines for phasing out banned plastics.</p>
+    </div>
+  </section>
+
+  <!-- How to Comply -->
+  <section class="compliance">
+    <h2>📋 How to Comply</h2>
+    <ol>
+      <li>Register your business with REMA</li>
+      <li>Switch to government-approved alternatives</li>
+      <li>Get your compliance certificate</li>
+      <li>Stay informed with notifications</li>
+    </ol>
+    <button>Apply for Certificate</button>
+    <button>Find Suppliers</button>
+  </section>
+
+  <!-- Report Violations -->
+  <section class="report">
+    <h2>🚨 Report Violations</h2>
+    <form>
+      <label>Location:</label>
+      <input type="text" placeholder="Enter location">
+      <label>Upload Photo:</label>
+      <input type="file">
+      <label>Description:</label>
+      <textarea placeholder="Describe the issue..."></textarea>
+      <label><input type="checkbox"> Report Anonymously</label>
+      <button type="submit">Submit Report</button>
+    </form>
+  </section>
+
+  <!-- Advocacy Section -->
+  <section class="advocacy">
+    <h2>📣 Advocate for Stronger Policies</h2>
+    <ul>
+      <li>Sign petitions for new laws</li>
+      <li>Share awareness posters</li>
+      <li>Join policy discussions</li>
+    </ul>
+    <button>Start a Petition</button>
+    <button>Share Awareness Poster</button>
+  </section>
+
+  <!-- Policy News & Alerts -->
+  <section class="news">
+    <h2>🔔 Policy News & Alerts</h2>
+    <ul>
+      <li>📰 New inspection policy for schools starts June 1</li>
+      <li>📰 Rwanda signs UN plastics treaty agreement</li>
+    </ul>
+    <label><input type="checkbox"> Enable Notifications</label>
+  </section>
+
+  <!-- Education Section -->
+  <section class="education">
+    <h2>🎓 Learn More</h2>
+    <ul>
+      <li><a href="#">Watch: Why Plastic Bans Matter 🎥</a></li>
+      <li><a href="#">FAQs: Can I still use bottles? ❓</a></li>
+      <li><a href="#">Take Quiz: Know Your Laws 🧠</a></li>
+    </ul>
+  </section>
+
+  <!-- For Policymakers -->
+  <section class="policy-support">
+    <h2>🏛️ For Policymakers & Officials</h2>
+    <p>Explore stats, templates, and policy ideas for your district.</p>
+    <button>Download Policy Toolkit</button>
+    <button>Contact Us</button>
+  </section>
+</div>
+
+
+    <h4 class="section-title">🤝 Public-Private Partnerships</h4>
+    <div class="card p-3">
+      <p>Collaborate with innovators and investors to support scalable recycling and waste management solutions.</p>
+    </div>
+
+    <h4 class="section-title">📈 Reporting & Impact Dashboard</h4>
+    <div class="card p-3">
+      <p>View national reports, local data, and statistics on plastic waste collection, recycling rates, and policy impact.</p>
+    </div>
+
+    <h4 class="section-title">🛠️ Government Tools</h4>
+    <div class="card p-3">
+      <ul>
+        <li>Policy builder templates</li>
+        <li>Funding request forms</li>
+        <li>Data upload portals</li>
+        <li>Guidance for implementing circular economy models</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Partnership Access | EndPollution</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2f8b35;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #2f8b35;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2f8b35;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>EndPollution: Private Partnership Access</h1>
+</header>
+
+<div class="container">
+    <div id="private-partnership">
+        <h2>Partner with Us to Fight Plastic Pollution</h2>
+        <p>
+            EndPollution invites businesses, startups, tech companies, recyclers, manufacturers, and innovators to become active partners
+            in the mission to end plastic pollution. Through our <strong>Private Partnership Access Portal</strong>, you gain:
+        </p>
+
+        <ul>
+            <li><strong>Real-time access to pollution data</strong> for research, strategy, and sustainability reporting.</li>
+            <li><strong>API integration</strong> for waste tracking, recycling input, and material reuse statistics.</li>
+            <li><strong>Investment opportunities</strong> in smart recycling infrastructure and green startups.</li>
+            <li><strong>Brand visibility</strong> as an eco-conscious leader through partnership showcases.</li>
+            <li><strong>Insights into community needs</strong> to align CSR (Corporate Social Responsibility) with impact.</li>
+            <li><strong>Access to government incentives</strong>, green certifications, and co-branded campaigns.</li>
+        </ul>
+
+        <p>
+            By partnering with EndPollution, you contribute to a <strong>circular economy</strong>, create green jobs, and help design
+            a future free of plastic pollution. Join us in making a tangible, lasting difference.
+        </p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 EndPollution | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EndPollution App</title>
+  <style>
+  body {
+  background-image: url('https://img.freepik.com/free-photo/eco-friendly-wind-power-project-layout-desk_23-2148847799.jpg?ga=GA1.1.635610896.1747241757&semt=ais_hybrid&w=740');
+  background-size: cover;       /* Make it cover the whole screen */
+  background-repeat: no-repeat; /* Prevent tiling */
+  background-position: center;  /* Center the image */
+}
+
+   
+
+    .app-icon {
+      width: 420px;
+      height: 120px;
+      background: linear-gradient(to bottom right, #1f9c5a, #47d18c);
+      border-radius: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .app-icon:hover {
+      transform: scale(2);
+    }
+
+    .app-icon img {
+      width: 120px;
+      height: 90px;
+      border-radius: 25%;
+    }
+  </style>
+</head>
+<body>
+   
+
+  <!-- App Icon -->
+ 
+  <div class="app-icon" onclick="location.href='start.html'">
+         
+     <img src="data:image/jpeg;base64,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" alt="App Icon" />
+      <h1>EndPollution App</h1>
+     
+  </div>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EndPollution - Student Features</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #e8f5e9;
+      color: #333;
+    }
+    header {
+      background-color: #2e7d32;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background: #66bb6a;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    nav a {
+      padding: 10px 15px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      background: #388e3c;
+    }
+    section {
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+      background: #f1f8e9;
+    }
+    h2 {
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎓 EndPollution Student Learning & Engagement Center</h1>
+  <p>Empowering students to fight plastic pollution through innovation and action.</p>
+</header>
+
+<nav>
+  <a href="#feature1">1. Gamified Learning</a>
+  <a href="#feature2">2. Digital Certificates</a>
+  <a href="#feature3">3. Projects Showcase</a>
+  <a href="#feature4">4. Upload Stories</a>
+  <a href="#feature5">5. Pollution Map</a>
+  <a href="#feature6">6. Ask AI</a>
+  <a href="#feature7">7. Jobs & Internships</a>
+  <a href="#feature8">8. Challenges</a>
+  <a href="#feature9">9. Educational Materials</a>
+  <a href="#feature10">10. Multilingual</a>
+  <a href="#feature11">11. Be Featured</a>
+  <a href="#feature12">12. Forum</a>
+  <a href="#feature13">13. Mentors</a>
+  <a href="#feature14">14. Scan & Learn</a>
+  <a href="#feature15">15. PWA App</a>
+</nav>
+
+<section id="feature1"><!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EndPlastic App - Gamified Learning</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: green;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: green;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    .game-section {
+      padding: 30px;
+      background-color: white;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 2px solid green;
+    }
+
+    .quiz-title {
+      font-size: 1.5em;
+      color: green;
+    }
+
+    .quiz-question {
+      margin: 15px 0;
+    }
+
+    .quiz-button {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+
+    .quiz-button:hover {
+      background-color: darkgreen;
+    }
+
+    .result {
+      font-size: 1.2em;
+      color: green;
+      margin-top: 10px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .progress-bar div {
+      height: 20px;
+      width: 0;
+      background-color: green;
+      border-radius: 5px;
+    }
+
+    .badge {
+      font-size: 1.2em;
+      color: green;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .badge.active {
+      display: inline-block;
+    }
+
+    .badge i {
+      margin-right: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><i class="fas fa-graduation-cap"></i> Gamified Learning - EndPlastic App</h1>
+  <p>Test your knowledge and earn rewards for tackling plastic pollution!</p>
+</header>
+
+<section class="game-section">
+  <div class="quiz-title">🧠 Test Your Knowledge: Plastic Prevention Methods</div>
+
+  <div class="quiz-question">
+    <p>What is one effective way to reduce plastic pollution in schools?</p>
+    <button class="quiz-button" onclick="checkAnswer('recycling')">Recycling</button>
+    <button class="quiz-button" onclick="checkAnswer('incineration')">Incineration</button>
+    <button class="quiz-button" onclick="checkAnswer('burial')">Burial</button>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <div class="progress-bar">
+    <div id="progress"></div>
+  </div>
+
+  <div class="badge" id="badge">
+    <i class="fas fa-trophy"></i> Congratulations! You've earned a badge for completing the quiz.
+  </div>
+
+</section>
+
+<script>
+  let score = 0;
+  let totalQuestions = 1;
+  let progressBar = document.getElementById('progress');
+  let resultElement = document.getElementById('result');
+  let badgeElement = document.getElementById('badge');
+
+  function checkAnswer(answer) {
+    if (answer === 'recycling') {
+      score++;
+      resultElement.textContent = "🎉 Correct! Recycling is an effective way to reduce plastic pollution.";
+      resultElement.style.color = 'green';
+    } else {
+      resultElement.textContent = "❌ Incorrect. Try again!";
+      resultElement.style.color = '#ff6666';
+    }
+
+    updateProgress();
+    showBadge();
+  }
+
+  function updateProgress() {
+    let progressPercentage = (score / totalQuestions) * 100;
+    progressBar.style.width = progressPercentage + '%';
+  }
+
+  function showBadge() {
+    if (score === totalQuestions) {
+      badgeElement.classList.add('active');
+    }
+  }
+</script>
+
+</body>
+</html>
+
+
+  <h2>🎮 1. Gamified Learning & Quizzes</h2>
+  <p>Engage in interactive quizzes, earn points, and unlock achievements while learning about plastic pollution.</p>
+</section>
+
+<section id="feature2"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EndPlastic App - Digital Certificate</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: green;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: green;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    .content-section {
+      padding: 30px;
+      background-color: white;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 2px solid green;
+    }
+
+    .result {
+      font-size: 1.2em;
+      color: green;
+      margin-top: 10px;
+    }
+
+    .badge {
+      font-size: 1.2em;
+      color: green;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .badge.active {
+      display: inline-block;
+    }
+
+    .certificate-btn {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .certificate-btn:hover {
+      background-color: darkgreen;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><i class="fas fa-graduation-cap"></i> Digital Certificate - EndPlastic App</h1>
+  <p>Complete the quiz and earn your digital certificate!</p>
+</header>
+
+<section class="content-section">
+  <div class="result" id="result">You have completed the quiz!</div>
+
+  <div class="badge" id="badge">
+    <i class="fas fa-trophy"></i> Congratulations! You've earned your certificate.
+  </div>
+
+  <button class="certificate-btn" id="generateCertificateBtn" onclick="generateCertificate()">Generate Certificate</button>
+</section>
+
+<script>
+  let score = 1;  // Example score for completing the task
+  let totalQuestions = 1;
+
+  // Badge and certificate generation logic
+  function generateCertificate() {
+    // Check if the user has completed the quiz/task and earned the certificate
+    if (score === totalQuestions) {
+      document.getElementById('badge').classList.add('active');
+    }
+
+    // Generate the certificate PDF using jsPDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(20);
+    doc.text("Certificate of Achievement", 105, 50, null, null, "center");
+
+    doc.setFontSize(16);
+    doc.text("This certifies that", 105, 70, null, null, "center");
+
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
+    doc.text("[Student's Name]", 105, 90, null, null, "center");
+
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "normal");
+    doc.text("has successfully completed the EndPlastic Quiz on", 105, 110, null, null, "center");
+
+    doc.setFontSize(16);
+    doc.text("Plastic Pollution Prevention", 105, 130, null, null, "center");
+
+    doc.setFontSize(12);
+    doc.text("Date: " + new Date().toLocaleDateString(), 105, 160, null, null, "center");
+
+    doc.addImage("https://example.com/badge-image.png", "PNG", 70, 120, 30, 30);  // Replace with a badge image
+
+    // Save the PDF
+    doc.save("EndPlastic_Certificate.pdf");
+  }
+</script>
+
+</body>
+</html>
+
+
+  <h2>🎓 2. Earn Digital Certificates</h2>
+  <p>Get recognized with certificates when you complete learning modules or contribute to pollution prevention.</p>
+</section>
+
+<section id="feature3"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EndPlastic App - Projects Showcase</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: green;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    .content-section {
+      padding: 30px;
+      background-color: white;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 2px solid green;
+    }
+
+    .form-container {
+      margin-bottom: 30px;
+    }
+
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .form-container button {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background-color: darkgreen;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background-color: white;
+      padding: 20px;
+      border: 2px solid green;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .project-title {
+      font-size: 1.5em;
+      margin-top: 15px;
+      color: green;
+    }
+
+    .project-description {
+      font-size: 1em;
+      margin-top: 10px;
+    }
+
+    .vote-btn {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .vote-btn:hover {
+      background-color: darkgreen;
+    }
+
+    .vote-count {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><i class="fas fa-project-diagram"></i> Projects Showcase - EndPlastic App</h1>
+  <p>Submit and view innovative projects aimed at reducing plastic pollution!</p>
+</header>
+
+<section class="content-section">
+  <div class="form-container">
+    <h2>Submit Your Project</h2>
+    <input type="text" id="projectTitle" placeholder="Project Title" required>
+    <textarea id="projectDescription" placeholder="Project Description" rows="4" required></textarea>
+    <input type="file" id="projectImage" accept="image/*">
+    <button onclick="submitProject()">Submit Project</button>
+  </div>
+
+  <h2>Projects Submitted</h2>
+  <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<script>
+  const projects = [];
+
+  // Function to display the submitted projects
+  function displayProjects() {
+    const projectsGrid = document.getElementById("projectsGrid");
+    projectsGrid.innerHTML = "";
+
+    projects.forEach((project, index) => {
+      const projectCard = document.createElement("div");
+      projectCard.classList.add("project-card");
+
+      const projectImage = document.createElement("img");
+      projectImage.src = project.image || "https://via.placeholder.com/300";
+      projectImage.alt = project.title;
+
+      const projectTitle = document.createElement("h3");
+      projectTitle.classList.add("project-title");
+      projectTitle.textContent = project.title;
+
+      const projectDescription = document.createElement("p");
+      projectDescription.classList.add("project-description");
+      projectDescription.textContent = project.description;
+
+      const voteButton = document.createElement("button");
+      voteButton.classList.add("vote-btn");
+      voteButton.textContent = "Vote for this Project";
+      voteButton.onclick = () => voteForProject(index);
+
+      const voteCount = document.createElement("div");
+      voteCount.classList.add("vote-count");
+      voteCount.textContent = `Votes: ${project.votes}`;
+
+      projectCard.appendChild(projectImage);
+      projectCard.appendChild(projectTitle);
+      projectCard.appendChild(projectDescription);
+      projectCard.appendChild(voteButton);
+      projectCard.appendChild(voteCount);
+
+      projectsGrid.appendChild(projectCard);
+    });
+  }
+
+  // Function to submit a new project
+  function submitProject() {
+    const title = document.getElementById("projectTitle").value;
+    const description = document.getElementById("projectDescription").value;
+    const image = document.getElementById("projectImage").files[0];
+
+    if (title && description) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const project = {
+          title,
+          description,
+          image: reader.result,
+          votes: 0
+        };
+        projects.push(project);
+        displayProjects();
+      };
+
+      if (image) {
+        reader.readAsDataURL(image);
+      } else {
+        // If no image, create an empty project with no image
+        const project = {
+          title,
+          description,
+          image: null,
+          votes: 0
+        };
+        projects.push(project);
+        displayProjects();
+      }
+    } else {
+      alert("Please fill in both title and description!");
+    }
+  }
+
+  // Function to vote for a project
+  function voteForProject(index) {
+    projects[index].votes++;
+    displayProjects();
+  }
+</script>
+
+</body>
+</html>
+
+  <h2>📚 3. Student Projects
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EndPlastic App - Projects & Stories Showcase</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: green;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    .content-section {
+      padding: 30px;
+      background-color: white;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 2px solid green;
+    }
+
+    .form-container {
+      margin-bottom: 30px;
+    }
+
+    .form-container input,
+    .form-container textarea,
+    .form-container select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .form-container button {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background-color: darkgreen;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background-color: white;
+      padding: 20px;
+      border: 2px solid green;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .project-title {
+      font-size: 1.5em;
+      margin-top: 15px;
+      color: green;
+    }
+
+    .project-description {
+      font-size: 1em;
+      margin-top: 10px;
+    }
+
+    .vote-btn {
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .vote-btn:hover {
+      background-color: darkgreen;
+    }
+
+    .vote-count {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    /* Story Section Styles */
+    .story-card {
+      background-color: white;
+      padding: 20px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .story-card img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .story-title {
+      font-size: 1.5em;
+      color: green;
+      margin-top: 15px;
+    }
+
+    .story-content {
+      font-size: 1em;
+      margin-top: 10px;
+    }
+
+    .stories-grid {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><i class="fas fa-project-diagram"></i> Projects & Stories Showcase - EndPlastic App</h1>
+  <p>Submit and view innovative projects and personal stories about reducing plastic pollution!</p>
+</header>
+
+<section class="content-section">
+  <div class="form-container">
+    <h2>Submit Your Project</h2>
+    <input type="text" id="projectTitle" placeholder="Project Title" required>
+    <textarea id="projectDescription" placeholder="Project Description" rows="4" required></textarea>
+    <input type="file" id="projectImage" accept="image/*">
+    <button onclick="submitProject()">Submit Project</button>
+  </div>
+
+  <h2>Projects Submitted</h2>
+  <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<section class="content-section">
+  <div class="form-container">
+    <h2>Upload Your Story</h2>
+    <textarea id="storyContent" placeholder="Your Story About Plastic Pollution" rows="6" required></textarea>
+    <input type="text" id="storyTitle" placeholder="Story Title" required>
+    <input type="file" id="storyImage" accept="image/*">
+    <button onclick="submitStory()">Upload Story</button>
+  </div>
+
+  <h2>Stories Shared</h2>
+  <div class="stories-grid" id="storiesGrid"></div>
+</section>
+
+<script>
+  const projects = [];
+  const stories = [];
+
+  // Function to display the submitted projects
+  function displayProjects() {
+    const projectsGrid = document.getElementById("projectsGrid");
+    projectsGrid.innerHTML = "";
+
+    projects.forEach((project, index) => {
+      const projectCard = document.createElement("div");
+      projectCard.classList.add("project-card");
+
+      const projectImage = document.createElement("img");
+      projectImage.src = project.image || "https://via.placeholder.com/300";
+      projectImage.alt = project.title;
+
+      const projectTitle = document.createElement("h3");
+      projectTitle.classList.add("project-title");
+      projectTitle.textContent = project.title;
+
+      const projectDescription = document.createElement("p");
+      projectDescription.classList.add("project-description");
+      projectDescription.textContent = project.description;
+
+      const voteButton = document.createElement("button");
+      voteButton.classList.add("vote-btn");
+      voteButton.textContent = "Vote for this Project";
+      voteButton.onclick = () => voteForProject(index);
+
+      const voteCount = document.createElement("div");
+      voteCount.classList.add("vote-count");
+      voteCount.textContent = `Votes: ${project.votes}`;
+
+      projectCard.appendChild(projectImage);
+      projectCard.appendChild(projectTitle);
+      projectCard.appendChild(projectDescription);
+      projectCard.appendChild(voteButton);
+      projectCard.appendChild(voteCount);
+
+      projectsGrid.appendChild(projectCard);
+    });
+  }
+
+  // Function to submit a new project
+  function submitProject() {
+    const title = document.getElementById("projectTitle").value;
+    const description = document.getElementById("projectDescription").value;
+    const image = document.getElementById("projectImage").files[0];
+
+    if (title && description) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const project = {
+          title,
+          description,
+          image: reader.result,
+          votes: 0
+        };
+        projects.push(project);
+        displayProjects();
+      };
+
+      if (image) {
+        reader.readAsDataURL(image);
+      } else {
+        // If no image, create an empty project with no image
+        const project = {
+          title,
+          description,
+          image: null,
+          votes: 0
+        };
+        projects.push(project);
+        displayProjects();
+      }
+    } else {
+      alert("Please fill in both title and description!");
+    }
+  }
+
+  // Function to vote for a project
+  function voteForProject(index) {
+    projects[index].votes++;
+    displayProjects();
+  }
+
+  // Function to submit a story
+  function submitStory() {
+    const title = document.getElementById("storyTitle").value;
+    const content = document.getElementById("storyContent").value;
+    const image = document.getElementById("storyImage").files[0];
+
+    if (title && content) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const story = {
+          title,
+          content,
+          image: reader.result
+        };
+        stories.push(story);
+        displayStories();
+      };
+
+      if (image) {
+        reader.readAsDataURL(image);
+      } else {
+        // If no image, create an empty story with no image
+        const story = {
+          title,
+          content,
+          image: null
+        };
+        stories.push(story);
+        displayStories();
+      }
+    } else {
+      alert("Please fill in both title and content!");
+    }
+  }
+
+  // Function to display the uploaded stories
+  function displayStories() {
+    const storiesGrid = document.getElementById("storiesGrid");
+    storiesGrid.innerHTML = "";
+
+    stories.forEach((story) => {
+      const storyCard = document.createElement("div");
+      storyCard.classList.add("story-card");
+
+      const storyImage = document.createElement("img");
+      storyImage.src = story.image || "https://via.placeholder.com/300";
+      storyImage.alt = story.title;
+
+      const storyTitle = document.createElement("h3");
+      storyTitle.classList.add("story-title");
+      storyTitle.textContent = story.title;
+
+      const storyContent = document.createElement("p");
+      storyContent.classList.add("story-content");
+      storyContent.textContent = story.content;
+
+      storyCard.appendChild(storyImage);
+      storyCard.appendChild(storyTitle);
+      storyCard.appendChild(storyContent);
+
+      storiesGrid.appendChild(storyCard);
+    });
+  }
+
+</script>
+
+</body>
+</html>
+<section class="content-section">
+  <div class="form-container">
+    <h2>Upload Your Story with AI Assistance</h2>
+    <p>Let AI assist you with enhancing your story! It can help with grammar, suggesting improvements, generating ideas, and more.</p>
+    <textarea id="storyContent" placeholder="Your Story About Plastic Pollution" rows="6" required></textarea>
+    <input type="text" id="storyTitle" placeholder="Story Title" required>
+    <input type="file" id="storyImage" accept="image/*">
+    <button onclick="submitStoryWithAI()">Upload Story</button>
+  </div>
+
+  <h2>AI-Enhanced Stories</h2>
+  <div class="stories-grid" id="storiesGrid"></div>
+
+  <div class="ai-assistance">
+    <h3>Need Help? Ask the AI!</h3>
+    <div class="ai-icons">
+      <button onclick="askAI('suggestion')">
+        <img src="icons/suggestion-icon.png" alt="AI Suggestion" title="Get Story Suggestions">
+        <span>Suggestions</span>
+      </button>
+      <button onclick="askAI('grammar')">
+        <img src="icons/grammar-icon.png" alt="AI Grammar Check" title="Grammar Assistance">
+        <span>Grammar</span>
+      </button>
+      <button onclick="askAI('idea-generation')">
+        <img src="icons/idea-icon.png" alt="AI Idea Generation" title="Generate Story Ideas">
+        <span>Ideas</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  async function submitStoryWithAI() {
+    const title = document.getElementById("storyTitle").value;
+    const content = document.getElementById("storyContent").value;
+    const image = document.getElementById("storyImage").files[0];
+
+    if (title && content) {
+      // Call AI to enhance story
+      const enhancedContent = await enhanceStoryWithAI(content);
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const story = {
+          title,
+          content: enhancedContent,
+          image: reader.result
+        };
+        stories.push(story);
+        displayStories();
+      };
+
+      if (image) {
+        reader.readAsDataURL(image);
+      } else {
+        const story = {
+          title,
+          content: enhancedContent,
+          image: null
+        };
+        stories.push(story);
+        displayStories();
+      }
+    } else {
+      alert("Please fill in both title and content!");
+    }
+  }
+
+  // Function to simulate AI assistance (grammar check, suggestion, idea generation)
+  async function askAI(type) {
+    let response = '';
+
+    switch(type) {
+      case 'suggestion':
+        response = await getAISuggestions(); // Call AI to get suggestions
+        break;
+      case 'grammar':
+        response = await checkGrammarWithAI(); // Call AI for grammar check
+        break;
+      case 'idea-generation':
+        response = await generateStoryIdeas(); // Generate new story ideas with AI
+        break;
+      default:
+        response = "How can I assist you?";
+    }
+
+    alert(response);
+  }
+
+  // Mock AI functions for suggestions, grammar check, and idea generation
+  function getAISuggestions() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("AI suggests: Try including a call to action in your story to inspire others.");
+      }, 1000);
+    });
+  }
+
+  function checkGrammarWithAI() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("AI found some minor grammatical errors. Consider revising the sentence structure.");
+      }, 1000);
+    });
+  }
+
+  function generateStoryIdeas() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("AI suggests: How about writing about a community project for cleaning local rivers?");
+      }, 1000);
+    });
+  }
+</script>
+
+<style>
+  .ai-assistance {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+  }
+
+  .ai-assistance h3 {
+    margin-bottom: 20px;
+  }
+
+  .ai-icons {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+  }
+
+  .ai-icons button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: flex;<section class="jobs-section">
+  <h2>Jobs & Internship Opportunities</h2>
+  <p>Explore available job and internship opportunities in the field of environmental sustainability, plastic management, and more. Apply now and contribute to the change!</p>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" id="searchField" placeholder="Search by title or category" oninput="filterJobs()">
+    <button onclick="filterJobs()">Search</button>
+  </div>
+
+  <!-- Job/Internship Listings -->
+  <div class="job-listings" id="jobListings">
+    <!-- Job cards will be injected here -->
+  </div>
+
+  <!-- Job/Internship Details Popup -->
+  <div id="jobDetailsPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeJobDetails()">&times;</span>
+      <h3 id="jobTitle"></h3>
+      <p><strong>Category:</strong> <span id="jobCategory"></span></p>
+      <p><strong>Description:</strong> <span id="jobDescription"></span></p>
+      <p><strong>Location:</strong> <span id="jobLocation"></span></p>
+      <p><strong>Deadline:</strong> <span id="jobDeadline"></span></p>
+      <button onclick="applyForJob()">Apply Now</button>
+    </div>
+  </div>
+
+  <!-- Application Form -->
+  <div id="applicationForm" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeApplicationForm()">&times;</span>
+      <h3>Apply for the Position</h3>
+      <form id="applyForm">
+        <input type="text" id="applicantName" placeholder="Your Name" required>
+        <input type="email" id="applicantEmail" placeholder="Your Email" required>
+        <input type="file" id="resumeFile" accept=".pdf, .doc, .docx" required>
+        <textarea id="coverLetter" placeholder="Write a cover letter" rows="5" required></textarea>
+        <button type="submit">Submit Application</button>
+      </form>
+      <div id="applicationFeedback"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Example data for jobs and internships
+const jobData = [
+  {
+    title: "Environmental Sustainability Intern",
+    category: "Internship",
+    description: "Help in the research and development of sustainability programs aimed at reducing plastic pollution.",
+    location: "Kigali, Rwanda",
+    deadline: "2025-06-30",
+  },
+  {
+    title: "Plastic Waste Management Officer",
+    category: "Job",
+    description: "Lead the implementation of waste management systems focused on plastic recycling and reduction.",
+    location: "Kigali, Rwanda",
+    deadline: "2025-05-31",
+  },
+  {
+    title: "AI Data Analyst for Sustainability",
+    category: "Internship",
+    description: "Work with AI tools to analyze data related to plastic pollution and sustainability efforts.",
+    location: "Remote",
+    deadline: "2025-07-15",
+  },
+];
+
+function displayJobListings() {
+  const jobListingsContainer = document.getElementById("jobListings");
+  jobListingsContainer.innerHTML = ''; // Clear existing listings
+
+  jobData.forEach((job, index) => {
+    const jobCard = document.createElement("div");
+    jobCard.classList.add("job-card");
+    jobCard.innerHTML = `
+      <h4>${job.title}</h4>
+      <p><strong>Category:</strong> ${job.category}</p>
+      <p><strong>Location:</strong> ${job.location}</p>
+      <p><strong>Deadline:</strong> ${job.deadline}</p>
+      <button onclick="viewJobDetails(${index})">View Details</button>
+    `;
+    jobListingsContainer.appendChild(jobCard);
+  });
+}
+
+function viewJobDetails(index) {
+  const job = jobData[index];
+  document.getElementById("jobTitle").textContent = job.title;
+  document.getElementById("jobCategory").textContent = job.category;
+  document.getElementById("jobDescription").textContent = job.description;
+  document.getElementById("jobLocation").textContent = job.location;
+  document.getElementById("jobDeadline").textContent = job.deadline;
+
+  // Open the job details popup
+  document.getElementById("jobDetailsPopup").style.display = "block";
+}
+
+function closeJobDetails() {
+  // Close the job details popup
+  document.getElementById("jobDetailsPopup").style.display = "none";
+}
+
+function applyForJob() {
+  // Open the application form popup
+  document.getElementById("applicationForm").style.display = "block";
+}
+
+function closeApplicationForm() {
+  // Close the application form popup
+  document.getElementById("applicationForm").style.display = "none";
+}
+
+document.getElementById("applyForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById("applicantName").value;
+  const email = document.getElementById("applicantEmail").value;
+  const resume = document.getElementById("resumeFile").files[0];
+  const coverLetter = document.getElementById("coverLetter").value;
+
+  if (name && email && resume && coverLetter) {
+    document.getElementById("applicationFeedback").textContent = "Your application has been successfully submitted!";
+    document.getElementById("applyForm").reset(); // Reset the form
+  } else {
+    document.getElementById("applicationFeedback").textContent = "Please fill out all fields and upload your resume.";
+  }
+});
+
+function filterJobs() {
+  const searchQuery = document.getElementById("searchField").value.toLowerCase();
+  const filteredJobs = jobData.filter(job =>
+    job.title.toLowerCase().includes(searchQuery) ||
+    job.category.toLowerCase().includes(searchQuery)
+  );
+
+  // Display filtered jobs
+  const jobListingsContainer = document.getElementById("jobListings");
+  jobListingsContainer.innerHTML = ''; // Clear existing listings
+
+  filteredJobs.forEach((job, index) => {
+    const jobCard = document.createElement("div");
+    jobCard.classList.add("job-card");
+    jobCard.innerHTML = `
+      <h4>${job.title}</h4>
+      <p><strong>Category:</strong> ${job.category}</p>
+      <p><strong>Location:</strong> ${job.location}</p>
+      <p><strong>Deadline:</strong> ${job.deadline}</p>
+      <button onclick="viewJobDetails(${index})">View Details</button>
+    `;
+    jobListingsContainer.appendChild(jobCard);
+  });
+}
+
+// Initially display all job listings
+displayJobListings();
+</script>
+
+<style>
+.jobs-section {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}
+
+.job-card {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-card h4 {
+  margin-top: 0;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  background-color: white;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.popup .close {
+  color: #aaa;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.popup .close:hover,
+.popup .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.search-bar button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+</style>
+
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .ai-icons button img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ai-icons button:hover {
+    background-color: #45a049;
+  }
+</style>
+<section class="jobs-section">
+  <h2>Jobs & Internship Opportunities</h2>
+  <p>Explore available job and internship opportunities in the field of environmental sustainability, plastic management, and more. Apply now and contribute to the change!</p>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" id="searchField" placeholder="Search by title or category" oninput="filterJobs()">
+    <button onclick="filterJobs()">Search</button>
+  </div>
+
+  <!-- Job/Internship Listings -->
+  <div class="job-listings" id="jobListings">
+    <!-- Job cards will be injected here -->
+  </div>
+
+  <!-- Job/Internship Details Popup -->
+  <div id="jobDetailsPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeJobDetails()">&times;</span>
+      <h3 id="jobTitle"></h3>
+      <p><strong>Category:</strong> <span id="jobCategory"></span></p>
+      <p><strong>Description:</strong> <span id="jobDescription"></span></p>
+      <p><strong>Location:</strong> <span id="jobLocation"></span></p>
+      <p><strong>Deadline:</strong> <span id="jobDeadline"></span></p>
+      <button onclick="applyForJob()">Apply Now</button>
+    </div>
+  </div>
+
+  <!-- Application Form -->
+  <div id="applicationForm" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeApplicationForm()">&times;</span>
+      <h3>Apply for the Position</h3>
+      <form id="applyForm">
+        <input type="text" id="applicantName" placeholder="Your Name" required>
+        <input type="email" id="applicantEmail" placeholder="Your Email" required>
+        <input type="file" id="resumeFile" accept=".pdf, .doc, .docx" required>
+        <textarea id="coverLetter" placeholder="Write a cover letter" rows="5" required></textarea>
+        <button type="submit">Submit Application</button>
+      </form>
+      <div id="applicationFeedback"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Example data for jobs and internships
+const jobData = [
+  {
+    title: "Environmental Sustainability Intern",
+    category: "Internship",
+    description: "Help in the research and development of sustainability programs aimed at reducing plastic pollution.",
+    location: "Kigali, Rwanda",
+    deadline: "2025-06-30",
+  },
+  {
+    title: "Plastic Waste Management Officer",
+    category: "Job",
+    description: "Lead the implementation of waste management systems focused on plastic recycling and reduction.",
+    location: "Kigali, Rwanda",
+    deadline: "2025-05-31",
+  },
+  {
+    title: "AI Data Analyst for Sustainability",
+    category: "Internship",
+    description: "Work with AI tools to analyze data related to plastic pollution and sustainability efforts.",
+    location: "Remote",
+    deadline: "2025-07-15",
+  },
+];
+
+function displayJobListings() {
+  const jobListingsContainer = document.getElementById("jobListings");
+  jobListingsContainer.innerHTML = ''; // Clear existing listings
+
+  jobData.forEach((job, index) => {
+    const jobCard = document.createElement("div");
+    jobCard.classList.add("job-card");
+    jobCard.innerHTML = `
+      <h4>${job.title}</h4>
+      <p><strong>Category:</strong> ${job.category}</p>
+      <p><strong>Location:</strong> ${job.location}</p>
+      <p><strong>Deadline:</strong> ${job.deadline}</p>
+      <button onclick="viewJobDetails(${index})">View Details</button>
+    `;
+    jobListingsContainer.appendChild(jobCard);
+  });
+}
+
+function viewJobDetails(index) {
+  const job = jobData[index];
+  document.getElementById("jobTitle").textContent = job.title;
+  document.getElementById("jobCategory").textContent = job.category;
+  document.getElementById("jobDescription").textContent = job.description;
+  document.getElementById("jobLocation").textContent = job.location;
+  document.getElementById("jobDeadline").textContent = job.deadline;
+
+  // Open the job details popup
+  document.getElementById("jobDetailsPopup").style.display = "block";
+}
+
+function closeJobDetails() {
+  // Close the job details popup
+  document.getElementById("jobDetailsPopup").style.display = "none";
+}
+
+function applyForJob() {
+  // Open the application form popup
+  document.getElementById("applicationForm").style.display = "block";
+}
+
+function closeApplicationForm() {
+  // Close the application form popup
+  document.getElementById("applicationForm").style.display = "none";
+}
+
+document.getElementById("applyForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById("applicantName").value;
+  const email = document.getElementById("applicantEmail").value;
+  const resume = document.getElementById("resumeFile").files[0];
+  const coverLetter = document.getElementById("coverLetter").value;
+
+  if (name && email && resume && coverLetter) {
+    document.getElementById("applicationFeedback").textContent = "Your application has been successfully submitted!";
+    document.getElementById("applyForm").reset(); // Reset the form
+  } else {
+    document.getElementById("applicationFeedback").textContent = "Please fill out all fields and upload your resume.";
+  }
+});
+
+function filterJobs() {
+  const searchQuery = document.getElementById("searchField").value.toLowerCase();
+  const filteredJobs = jobData.filter(job =>
+    job.title.toLowerCase().includes(searchQuery) ||
+    job.category.toLowerCase().includes(searchQuery)
+  );
+
+  // Display filtered jobs
+  const jobListingsContainer = document.getElementById("jobListings");
+  jobListingsContainer.innerHTML = ''; // Clear existing listings
+
+  filteredJobs.forEach((job, index) => {
+    const jobCard = document.createElement("div");
+    jobCard.classList.add("job-card");
+    jobCard.innerHTML = `
+      <h4>${job.title}</h4>
+      <p><strong>Category:</strong> ${job.category}</p>
+      <p><strong>Location:</strong> ${job.location}</p>
+      <p><strong>Deadline:</strong> ${job.deadline}</p>
+      <button onclick="viewJobDetails(${index})">View Details</button>
+    `;
+    jobListingsContainer.appendChild(jobCard);
+  });
+}
+
+// Initially display all job listings
+displayJobListings();
+</script>
+
+<style>
+.jobs-section {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}
+
+.job-card {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-card h4 {
+  margin-top: 0;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  background-color: white;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.popup .close {
+  color: #aaa;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.popup .close:hover,
+.popup .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.search-bar button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+</style>
+<section class="educational-materials">
+  <h2>Educational Materials on Plastic Pollution</h2>
+  <p>Explore a variety of resources to enhance your knowledge on environmental sustainability and plastic pollution management.</p>
+
+  <!-- Search and Filter Bar -->
+  <div class="search-bar">
+    <input type="text" id="searchField" placeholder="Search for resources" oninput="filterResources()">
+    <select id="categoryFilter" onchange="filterResources()">
+      <option value="">All Categories</option>
+      <option value="articles">Articles</option>
+      <option value="videos">Videos</option>
+      <option value="infographics">Infographics</option>
+      <option value="case_studies">Case Studies</option>
+    </select>
+    <button onclick="filterResources()">Search</button>
+  </div>
+
+  <!-- Resource Listings -->
+  <div class="resource-list" id="resourceList">
+    <!-- Resources will be dynamically injected here -->
+  </div>
+
+  <!-- Resource Details Popup -->
+  <div id="resourceDetailsPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeResourceDetails()">&times;</span>
+      <h3 id="resourceTitle"></h3>
+      <p><strong>Category:</strong> <span id="resourceCategory"></span></p>
+      <p><strong>Description:</strong> <span id="resourceDescription"></span></p>
+      <a id="resourceLink" href="" target="_blank"><button>View Resource</button></a>
+    </div>
+  </div>
+</section>
+
+<script>
+// Example data for educational materials
+const resources = [
+  {
+    title: "The Impact of Plastic Pollution",
+    category: "articles",
+    description: "An article that explains the environmental impact of plastic waste and its effect on ecosystems.",
+    link: "https://example.com/plastic-impact",
+  },
+  {
+    title: "Plastic Recycling 101 (Video)",
+    category: "videos",
+    description: "A short educational video that introduces the concept of plastic recycling and its importance.",
+    link: "https://example.com/plastic-recycling-video",
+  },
+  {
+    title: "Plastic Pollution in Oceans (Infographic)",
+    category: "infographics",
+    description: "A detailed infographic showing the current statistics of plastic pollution in oceans worldwide.",
+    link: "https://example.com/plastic-ocean-infographic",
+  },
+  {
+    title: "Global Plastic Waste Management: Case Study",
+    category: "case_studies",
+    description: "A comprehensive case study on global efforts to reduce plastic waste and improve recycling systems.",
+    link: "https://example.com/plastic-waste-case-study",
+  }
+];
+
+function displayResources() {
+  const resourceListContainer = document.getElementById("resourceList");
+  resourceListContainer.innerHTML = ''; // Clear existing resources
+
+  resources.forEach((resource, index) => {
+    const resourceCard = document.createElement("div");
+    resourceCard.classList.add("resource-card");
+    resourceCard.innerHTML = `
+      <h4>${resource.title}</h4>
+      <p><strong>Category:</strong> ${resource.category}</p>
+      <p><strong>Description:</strong> ${resource.description}</p>
+      <button onclick="viewResourceDetails(${index})">View Details</button>
+    `;
+    resourceListContainer.appendChild(resourceCard);
+  });
+}
+
+function viewResourceDetails(index) {
+  const resource = resources[index];
+  document.getElementById("resourceTitle").textContent = resource.title;
+  document.getElementById("resourceCategory").textContent = resource.category;
+  document.getElementById("resourceDescription").textContent = resource.description;
+  document.getElementById("resourceLink").href = resource.link;
+
+  // Open the resource details popup
+  document.getElementById("resourceDetailsPopup").style.display = "block";
+}
+
+function closeResourceDetails() {
+  // Close the resource details popup
+  document.getElementById("resourceDetailsPopup").style.display = "none";
+}
+
+function filterResources() {
+  const searchQuery = document.getElementById("searchField").value.toLowerCase();
+  const selectedCategory = document.getElementById("categoryFilter").value;
+
+  const filteredResources = resources.filter(resource =>
+    (resource.title.toLowerCase().includes(searchQuery) ||
+    resource.description.toLowerCase().includes(searchQuery)) &&
+    (selectedCategory === "" || resource.category === selectedCategory)
+  );
+
+  // Display filtered resources
+  const resourceListContainer = document.getElementById("resourceList");
+  resourceListContainer.innerHTML = ''; // Clear existing listings
+
+  filteredResources.forEach((resource, index) => {
+    const resourceCard = document.createElement("div");
+    resourceCard.classList.add("resource-card");
+    resourceCard.innerHTML = `
+      <h4>${resource.title}</h4>
+      <p><strong>Category:</strong> ${resource.category}</p>
+      <p><strong>Description:</strong> ${resource.description}</p>
+      <button onclick="viewResourceDetails(${index})">View Details</button>
+    `;
+    resourceListContainer.appendChild(resourceCard);
+  });
+}
+
+// Initially display all resources
+displayResources();
+</script>
+
+<style>
+.educational-materials {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}
+
+.resource-card {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.resource-card h4 {
+  margin-top: 0;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  background-color: white;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.popup .close {
+  color: #aaa;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.popup .close:hover,
+.popup .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input, .search-bar select {
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.search-bar button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+</style>
+<section class="educational-materials">
+  <h2 id="section-title">Educational Materials on Plastic Pollution</h2>
+  <p id="section-description">Explore a variety of resources to enhance your knowledge on environmental sustainability and plastic pollution management.</p>
+
+  <!-- Language Selection Dropdown -->
+  <div class="language-selector">
+    <label for="languageSelect">Choose Language: </label>
+    <select id="languageSelect" onchange="changeLanguage()">
+      <option value="en">English</option>
+      <option value="fr">French</option>
+      <option value="rw">Kinyarwanda</option>
+    </select>
+  </div>
+
+  <!-- Resource Listings -->
+  <div class="resource-list" id="resourceList">
+    <!-- Resources will be dynamically injected here -->
+  </div>
+
+  <!-- Resource Details Popup -->
+  <div id="resourceDetailsPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeResourceDetails()">&times;</span>
+      <h3 id="resourceTitle"></h3>
+      <p><strong id="resourceCategoryLabel"></strong> <span id="resourceCategory"></span></p>
+      <p><strong id="resourceDescriptionLabel"></strong> <span id="resourceDescription"></span></p>
+      <a id="resourceLink" href="" target="_blank"><button id="viewResourceButton">View Resource</button></a>
+    </div>
+  </div>
+</section>
+
+<script>
+// Language Data
+const languageData = {
+  en: {
+    sectionTitle: "Educational Materials on Plastic Pollution",
+    sectionDescription: "Explore a variety of resources to enhance your knowledge on environmental sustainability and plastic pollution management.",
+    resources: [
+      {
+        title: "The Impact of Plastic Pollution",
+        category: "articles",
+        description: "An article that explains the environmental impact of plastic waste and its effect on ecosystems.",
+        link: "https://example.com/plastic-impact",
+      },
+      {
+        title: "Plastic Recycling 101 (Video)",
+        category: "videos",
+        description: "A short educational video that introduces the concept of plastic recycling and its importance.",
+        link: "https://example.com/plastic-recycling-video",
+      },
+      {
+        title: "Plastic Pollution in Oceans (Infographic)",
+        category: "infographics",
+        description: "A detailed infographic showing the current statistics of plastic pollution in oceans worldwide.",
+        link: "https://example.com/plastic-ocean-infographic",
+      },
+      {
+        title: "Global Plastic Waste Management: Case Study",
+        category: "case_studies",
+        description: "A comprehensive case study on global efforts to reduce plastic waste and improve recycling systems.",
+        link: "https://example.com/plastic-waste-case-study",
+      }
+    ],
+    resourceCategoryLabel: "Category:",
+    resourceDescriptionLabel: "Description:",
+    viewResourceButton: "View Resource"
+  },
+  fr: {
+    sectionTitle: "Matériel Éducatif sur la Pollution Plastique",
+    sectionDescription: "Explorez une variété de ressources pour améliorer vos connaissances sur la durabilité environnementale et la gestion des déchets plastiques.",
+    resources: [
+      {
+        title: "L'impact de la pollution plastique",
+        category: "articles",
+        description: "Un article qui explique l'impact environnemental des déchets plastiques et leur effet sur les écosystèmes.",
+        link: "https://example.com/plastic-impact-fr",
+      },
+      {
+        title: "Le recyclage des plastiques 101 (Vidéo)",
+        category: "videos",
+        description: "Une vidéo éducative courte qui présente le concept du recyclage des plastiques et son importance.",
+        link: "https://example.com/plastic-recycling-video-fr",
+      },
+      {
+        title: "Pollution plastique dans les océans (Infographie)",
+        category: "infographics",
+        description: "Une infographie détaillée montrant les statistiques actuelles de la pollution plastique dans les océans du monde entier.",
+        link: "https://example.com/plastic-ocean-infographic-fr",
+      },
+      {
+        title: "Gestion des déchets plastiques mondiaux: Étude de cas",
+        category: "case_studies",
+        description: "Une étude de cas complète sur les efforts mondiaux visant à réduire les déchets plastiques et améliorer les systèmes de recyclage.",
+        link: "https://example.com/plastic-waste-case-study-fr",
+      }
+    ],
+    resourceCategoryLabel: "Catégorie:",
+    resourceDescriptionLabel: "Description:",
+    viewResourceButton: "Voir la ressource"
+  },
+  rw: {
+    sectionTitle: "Ibikoresho by'Amashuri ku Mikoreshereze ya Plastike",
+    sectionDescription: "Soma ibikoresho bitandukanye byo kongera ubumenyi bwawe ku kubungabunga ibidukikije no guhangana n’umwanda wa plastike.",
+    resources: [
+      {
+        title: "Imyuka ya Plastike ku Bidukikije",
+        category: "articles",
+        description: "Inyandiko isobanura uburyo imyanda ya plastike igira ingaruka ku bidukikije n’uburyo bigira ingaruka ku mirire n’ubuzima bwa rusange.",
+        link: "https://example.com/plastic-impact-rw",
+      },
+      {
+        title: "Gusubiza Plastike 101 (Video)",
+        category: "videos",
+        description: "Video ngufi yerekana uburyo gusubiza plastike bitera imbere kandi ni ngombwa cyane.",
+        link: "https://example.com/plastic-recycling-video-rw",
+      },
+      {
+        title: "Isura ya Plastike mu Nyanja (Infographic)",
+        category: "infographics",
+        description: "Infografike itanga amakuru y’ukuri ku byerekeye imyanda ya plastike mu nyanja.",
+        link: "https://example.com/plastic-ocean-infographic-rw",
+      },
+      {
+        title: "Uko Gukora Ibyo Gukoresha Imyanda ya Plastike Byakozwe: Urugero",
+        category: "case_studies",
+        description: "Ubushakashatsi bwimbitse ku ngamba zo kugabanya imyanda ya plastike ku isi no kunoza uburyo bwo kuyikosora.",
+        link: "https://example.com/plastic-waste-case-study-rw",
+      }
+    ],
+    resourceCategoryLabel: "Icyiciro:",
+    resourceDescriptionLabel: "Ibisobanuro:",
+    viewResourceButton: "Reba Ibyo"
+  }
+};
+
+// Default Language
+let currentLanguage = 'en';
+
+// Function to switch language
+function changeLanguage() {
+  const selectedLanguage = document.getElementById("languageSelect").value;
+  currentLanguage = selectedLanguage;
+  loadLanguage();
+}
+
+// Function to load content based on the selected language
+function loadLanguage() {
+  const langData = languageData[currentLanguage];
+
+  document.getElementById("section-title").textContent = langData.sectionTitle;
+  document.getElementById("section-description").textContent = langData.sectionDescription;
+ 
+  const resourceListContainer = document.getElementById("resourceList");
+  resourceListContainer.innerHTML = ''; // Clear existing resources
+ 
+  langData.resources.forEach((resource, index) => {
+    const resourceCard = document.createElement("div");
+    resourceCard.classList.add("resource-card");
+    resourceCard.innerHTML = `
+      <h4>${resource.title}</h4>
+      <p><strong>${langData.resourceCategoryLabel}</strong> ${resource.category}</p>
+      <p><strong>${langData.resourceDescriptionLabel}</strong> ${resource.description}</p>
+      <button onclick="viewResourceDetails(${index})">${langData.viewResourceButton}</button>
+    `;
+    resourceListContainer.appendChild(resourceCard);
+  });
+}
+
+// Function to view resource details
+function viewResourceDetails(index) {
+  const langData = languageData[currentLanguage];
+  const resource = langData.resources[index];
+ 
+  document.getElementById("resourceTitle").textContent = resource.title;
+  document.getElementById("resourceCategory").textContent = resource.category;
+  document.getElementById("resourceDescription").textContent = resource.description;
+  document.getElementById("resourceLink").href = resource.link;
+ 
+  // Open the resource details popup
+  document.getElementById("resourceDetailsPopup").style.display = "block";
+}
+
+// Function to close resource details popup
+function closeResourceDetails() {
+  document.getElementById("resourceDetailsPopup").style.display = "none";
+}
+
+// Initialize language on page load
+loadLanguage();
+</script>
+
+<style>
+/* Same CSS as before */
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rwanda Pollution Map - EndPollution</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #e6f9e6;
+    }
+    h2 {
+      background-color: #2e7d32;
+      color: white;
+      padding: 15px;
+      margin: 0;
+      text-align: center;
+    }
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+    .popup-content {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Rwanda District Pollution Map</h2>
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+  // Initialize map centered on Rwanda
+  const map = L.map('map').setView([-1.95, 30.06], 8);
+
+  // Add OpenStreetMap tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Define colors for pollution levels
+  const getColor = (level) => {
+    switch(level) {
+      case "High": return "red";
+      case "Medium": return "orange";
+      case "Low": return "green";
+      default: return "gray";
+    }
+  };
+
+  // Define Rwanda district data with pollution info
+  const pollutionData = [
+    { district: "Gasabo", lat: -1.8833, lng: 30.0833, level: "High", description: "High plastic pollution near rivers and markets." },
+    { district: "Kicukiro", lat: -1.9956, lng: 30.1147, level: "Medium", description: "Mixed waste from urban centers." },
+    { district: "Nyarugenge", lat: -1.9398, lng: 30.0444, level: "Low", description: "Well-maintained city with organized waste bins." },
+    { district: "Rubavu", lat: -1.6833, lng: 29.3667, level: "High", description: "Lake Kivu area has floating plastic and shoreline waste." },
+    { district: "Musanze", lat: -1.5, lng: 29.6, level: "Medium", description: "Tourist areas managed, but outskirts polluted." },
+    { district: "Huye", lat: -2.6, lng: 29.75, level: "Low", description: "Cleaner district due to university efforts." },
+    { district: "Rusizi", lat: -2.52, lng: 29.02, level: "High", description: "Industrial waste causing plastic accumulation." },
+    // Add more districts as needed
+  ];
+
+  // Loop to add color-coded markers for each district
+  pollutionData.forEach(d => {
+    const marker = L.circleMarker([d.lat, d.lng], {
+      color: getColor(d.level),
+      radius: 10,
+      fillOpacity: 0.8
+    }).addTo(map);
+
+    marker.bindPopup(`
+      <div class="popup-content">
+        <strong>District:</strong> ${d.district}<br>
+        <strong>Pollution Level:</strong> <span style="color:${getColor(d.level)};">${d.level}</span><br>
+        <p>${d.description}</p>
+      </div>
+    `);
+  });
+</script>
+
+</body>
+</html>
+
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rwanda Pollution Map - EndPollution</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #e6f9e6;
+    }
+    h2 {
+      background-color: #2e7d32;
+      color: white;
+      padding: 15px;
+      margin: 0;
+      text-align: center;
+    }
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+    .popup-content {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .update-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 10px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .update-btn:hover {
+      background-color: #256d27;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Rwanda District Pollution Map</h2>
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+  // Initialize map centered on Rwanda
+  const map = L.map('map').setView([-1.95, 30.06], 8);
+
+  // Add tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Custom pollution icon
+  const pollutionIcon = L.icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // pollution location icon
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -30]
+  });
+
+  // Rwanda pollution data
+  const pollutionData = [
+    {
+      district: "Gasabo",
+      lat: -1.8833,
+      lng: 30.0833,
+      level: "High",
+      reason: "Plastic accumulation near rivers and markets.",
+      solution: "Organize cleanups and install waste bins near riverbanks."
+    },
+    {
+      district: "Kicukiro",
+      lat: -1.9956,
+      lng: 30.1147,
+      level: "Medium",
+      reason: "Urban waste mixing with plastics.",
+      solution: "Introduce household waste separation and recycling centers."
+    },
+    {
+      district: "Nyarugenge",
+      lat: -1.9398,
+      lng: 30.0444,
+      level: "Low",
+      reason: "Well-managed but lacks awareness in schools.",
+      solution: "Start school education campaigns on plastic waste."
+    },
+    {
+      district: "Rubavu",
+      lat: -1.6833,
+      lng: 29.3667,
+      level: "High",
+      reason: "Plastic floating on Lake Kivu and tourist zones.",
+      solution: "Ban single-use plastics around the lake and promote eco-tourism."
+    },
+    {
+      district: "Musanze",
+      lat: -1.5,
+      lng: 29.6,
+      level: "Medium",
+      reason: "Pollution from markets and food packaging.",
+      solution: "Create biodegradable packaging zones for vendors."
+    },
+    {
+      district: "Huye",
+      lat: -2.6,
+      lng: 29.75,
+      level: "Low",
+      reason: "Mostly clean due to student participation.",
+      solution: "Expand student-led cleanup programs to rural sectors."
+    },
+    {
+      district: "Rusizi",
+      lat: -2.52,
+      lng: 29.02,
+      level: "High",
+      reason: "Industrial plastic dumped without sorting.",
+      solution: "Enforce stricter industrial waste disposal regulations."
+    }
+  ];
+
+  // Add markers with pollution icons and popups
+  pollutionData.forEach(d => {
+    const marker = L.marker([d.lat, d.lng], { icon: pollutionIcon }).addTo(map);
+    marker.bindPopup(`
+      <div class="popup-content">
+        <strong>District:</strong> ${d.district}<br>
+        <strong>Pollution Level:</strong> <span style="color:${d.level === 'High' ? 'red' : d.level === 'Medium' ? 'orange' : 'green'};">${d.level}</span><br><br>
+        <strong>Reason:</strong> ${d.reason}<br>
+        <strong>Suggested Solution:</strong> ${d.solution}<br>
+        <button class="update-btn" onclick="alert('Feature coming soon: Update info for ${d.district}')">✏️ Update Info</button>
+      </div>
+    `);
+  });
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gasabo District - Pollution Info | EndPollution</title>
+  <style>
+    body { font-family: Arial; margin: 0; padding: 20px; background: #f5fdf5; }
+    h1 { color: #2e7d32; }
+    section { margin-bottom: 20px; }
+    .solution { background: #e8f5e9; padding: 10px; border-left: 5px solid #2e7d32; }pollutionData.forEach(d => {
+  const marker = L.circleMarker([d.lat, d.lng], {
+    color: getColor(d.level),
+    radius: 10,
+    fillOpacity: 0.8
+  }).addTo(map);
+
+  marker.bindPopup(`
+    <div class="popup-content">
+      <strong>District:</strong> ${d.district}<br>
+      <strong>Pollution Level:</strong> <span style="color:${getColor(d.level)};">${d.level}</span><br>
+      <button onclick="location.href='districts/${d.district.toLowerCase()}.html'" style='margin-top:5px;padding:5px 10px;background:#2e7d32;color:white;border:none;cursor:pointer;'>More Info</button>
+    </div>
+  `);
+});
+
+  </style>
+</head>
+<body>
+
+<h1>Pollution Overview - Gasabo District</h1>
+
+<section>
+  <h2>Pollution Sources</h2>
+  <p>High plastic pollution near rivers and markets. Major contributor: informal dumping and poor waste bin coverage.</p>
+</section>
+
+<section>
+  <h2>Suggested Solutions</h2>
+  <div class="solution">
+    <ul>
+      <li>Deploy more waste bins in high-traffic areas.</li>
+      <li>Partner with Agroplast to recycle collected plastics.</li>
+      <li>Community awareness campaigns on waste sorting.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Prevention Strategies</h2>
+  <p>Encourage source separation at household level. Create a plastic-for-points rewards system to boost community participation.</p>
+</section>
+
+<section>
+  <h2>Proposed Projects</h2>
+  <ul>
+    <li><strong>Plastic-to-Bricks Innovation:</strong> Partner with local companies like Agroplast to turn waste into building materials.</li>
+    <li><strong>Smart Sorting Station:</strong> Set up sensor-based plastic sorting kiosks in Gasabo markets.</li>
+    <li><strong>Rainwater Recycling Unit:</strong> Implement a model similar to Greencare’s system for cleaning plastics sustainably.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Submit Your Updates</h2>
+  <form>
+    <textarea rows="4" cols="50" placeholder="Share new pollution data, reasons, or suggestions..."></textarea><br><br>
+    <button type="submit" style="padding:10px 20px;background:#2e7d32;color:white;border:none;">Submit</button>
+  </form>
+</section>
+
+</body>
+</html>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Start Page - EndPollution</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://media.istockphoto.com/id/1296032714/photo/plastic-pollution.jpg?s=612x612&w=0&k=20&c=zMR1oY26QuxuS9mk2YlWSvKt8YzUn5z8rG4mLRqjtjE=') no-repeat center center/cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 1rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+    }
+
+    nav a:hover {
+      opacity: 0.7;
+    }
+
+    .language-switcher {
+      margin-top: 0.5rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      margin: 2rem;
+      border-radius: 12px;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .btn {
+      background-color: #28a745;
+      border: none;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Menu with Language -->
+  <header>
+    <h1>EndPollution</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Investors</a>
+      <a href="#">Governments</a>
+      <a href="#">Students</a>
+      <a href="#">Jobs</a>
+    </nav>
+    <select class="language-switcher" onchange="changeLanguage(this.value)">
+      <option value="en">🇬🇧 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="rw">🇷🇼 Kinyarwanda</option>
+    </select>
+  </header>
+
+  <!-- Content Section -->
+  <div class="container" id="main-content">
+    <p>Join the fight against plastic pollution in Rwanda! Explore solutions, contribute, get certificate, get job and earn recognition.</p>
+    <button class="btn" onclick="alert('Redirecting to features...')">Get Started</button>
+  </div>
+
+  <script>
+    function changeLanguage(lang) {
+      const content = document.getElementById('main-content');
+      if (lang === 'fr') {
+        content.innerHTML = `
+          <p>Participez à la lutte contre la pollution plastique au Rwanda ! Explorez des solutions, contribuez et gagnez en reconnaissance.</p>
+          <button class="btn" onclick="alert('Redirection vers les fonctionnalités...')">Commencer</button>
+        `;
+      } else if (lang === 'rw') {
+        content.innerHTML = `
+          <p>Injira mu rugamba rwo kurwanya umwanda w’amapulasitike mu Rwanda! Shaka ibisubizo, tanga umusanzu, kandi uhabwe ishimwe.</p>
+          <button class="btn" onclick="alert('Kwerekeza ku bindi...')">Tangira</button>
+        `;
+      } else {
+        content.innerHTML = `
+          <p>Join the fight against plastic pollution in Rwanda! Explore solutions, contribute, get job, get certificate, and earn recognition.
+         
+          </p>
+          <button class="btn" onclick="alert('Redirecting to features...')">Get Started</button>
+        `;
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scan View - EndPollution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #e8f5e9;
+      color: #333;
+    }
+
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+    }
+
+    .column {
+      background: white;
+      flex: 1;
+      min-width: 300px;
+      margin: 10px;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 128, 0, 0.1);
+    }
+
+    .column h2 {
+      color: #1b5e20;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .preview {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .preview img {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 10px;
+      margin-top: 10px;
+      border: 2px solid #c8e6c9;
+    }
+
+    .btn {
+      background-color: #43a047;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    .btn:hover {
+      background-color: #2e7d32;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      margin-bottom: 10px;
+      border: 1px solid #a5d6a7;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    .report {
+      background-color: #f1f8e9;
+      padding: 10px;
+      border-left: 4px solid #66bb6a;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+
+    .post {
+      background-color: #fffde7;
+      padding: 10px;
+      border-left: 4px solid #fbc02d;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>📷 Scan & Report Plastic - EndPollution</header>
+
+<div class="container">
+
+  <!-- SCAN COLUMN -->
+  <div class="column">
+    <h2>📸 Scan Plastic</h2>
+    <input type="file" accept="image/*" onchange="previewImage(event)">
+    <div class="preview">
+      <img id="preview" alt="No image selected">
+    </div>
+    <button class="btn" onclick="analyzeImage()">🧠 Analyze Image</button>
+  </div>
+
+  <!-- POSTS COLUMN -->
+  <div class="column">
+    <h2>📝 Posts</h2>
+    <div class="post">
+      <p><strong>User:</strong> @plasticsaver</p>
+      <p>Cleaned 5kg plastic in Nyamirambo today! 💪</p>
+      <video src="your-video1.mp4" controls></video>
+    </div>
+    <div class="post">
+      <p><strong>User:</strong> @greenhero</p>
+      <p>Join our cleanup drive this Saturday 🌍</p>
+      <video src="your-video2.mp4" controls></video>
+    </div>
+  </div>
+
+  <!-- REPORTS COLUMN -->
+  <div class="column">
+    <h2>🚨 Reports</h2>
+
+    <button class="btn" onclick="toggleReportForm()">➕ Report Plastic Waste</button>
+
+    <div id="reportForm" style="display: none;">
+      <input type="text" id="locationInput" placeholder="📍 Location">
+      <textarea id="issueInput" placeholder="📝 Describe the issue..."></textarea>
+      <button class="btn" onclick="submitReport()">📤 Submit Report</button>
+    </div>
+
+    <div id="reportList">
+      <div class="report">
+        <p><strong>Location:</strong> Kigali Market</p>
+        <p><strong>Issue:</strong> Dumped plastic bottles clogging drains.</p>
+      </div>
+      <div class="report">
+        <p><strong>Location:</strong> Nyabugogo River</p>
+        <p><strong>Issue:</strong> Floating plastic waste observed.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      document.getElementById('preview').src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  function analyzeImage() {
+    alert("Analyzing image... (connect to backend later)");
+  }
+
+  function toggleReportForm() {
+    const form = document.getElementById('reportForm');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function submitReport() {
+    const location = document.getElementById('locationInput').value.trim();
+    const issue = document.getElementById('issueInput').value.trim();
+
+    if (!location || !issue) {
+      alert("📢 Please fill in both location and issue.");
+      return;
+    }
+
+    const newReport = `
+      <div class="report">
+        <p><strong>Location:</strong> ${location}</p>
+        <p><strong>Issue:</strong> ${issue}</p>
+      </div>
+    `;
+
+    const reportList = document.getElementById('reportList');
+    reportList.innerHTML = newReport + reportList.innerHTML;
+
+    document.getElementById('locationInput').value = '';
+    document.getElementById('issueInput').value = '';
+    toggleReportForm();
+  }
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EndPollution App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      overflow-x: hidden;
+    }
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .navbar {
+      background-color: rgba(46, 125, 50, 0.95);
+    }
+    .navbar-brand {
+      color: white;
+      font-weight: bold;
+    }
+    .main-content {
+      padding: 3rem 1rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    .menu-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem auto;
+      padding: 1rem;
+      max-width: 1000px;
+      background-color: rgba(255, 235, 59, 0.9);
+      border-radius: 12px;
+    }
+    .menu-item {
+      width: 120px;
+      height: 120px;
+      padding: 10px;
+      background: white;
+      color: black;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .menu-item:hover {
+      background: #2e7d32;
+      color: white;
+    }
+    .menu-item i {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="https://www.videvo.net/videvo_files/converted/2016_08/preview/160721_PlasticBottles_01.mp421483.webm" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">EndPollution</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Welcome to EndPollution</h1>
+    <p>Empowering a cleaner future through smart plastic waste innovation</p>
+  </div>
+
+  <!-- Menu Icons -->
+  <div class="menu-container">
+    <div class="menu-item" onclick="location.href='investing.html'">
+      <i class="bi bi-cash-coin"></i><br>Investing
+    </div>
+    <div class="menu-item" onclick="location.href='government.html'">
+      <i class="bi bi-bank"></i><br>Government
+    </div>
+    <div class="menu-item" onclick="location.href='location.html'">
+      <i class="bi bi-geo-alt-fill"></i><br>Location
+    </div>
+    <div class="menu-item" onclick="location.href='scan.html'">
+      <i class="bi bi-camera"></i><br>Scan
+    </div>
+    <div class="menu-item" onclick="location.href='get-job.html'">
+      <i class="bi bi-briefcase-fill"></i><br>Get Job
+    </div>
+    <div class="menu-item" onclick="location.href='guidelines.html'">
+      <i class="bi bi-book"></i><br>Guidelines
+    </div>
+    <div class="menu-item" onclick="location.href='students.html'">
+      <i class="bi bi-mortarboard"></i><br>Students
+    </div>
+    <div class="menu-item" onclick="location.href='certificate.html'">
+      <i class="bi bi-award"></i><br>Certificate
+    </div>
+  </div>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EndPollution App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      overflow-x: hidden;
+    }
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .navbar {
+      background-color: rgba(46, 125, 50, 0.95);
+    }
+    .navbar-brand {
+      color: white;
+      font-weight: bold;
+    }
+    .main-content {
+      padding: 3rem 1rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    .menu-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem auto;
+      padding: 1rem;
+      max-width: 1000px;
+      background-color: rgba(255, 235, 59, 0.9);
+      border-radius: 12px;
+    }
+    .menu-item {
+      width: 120px;
+      height: 120px;
+      padding: 10px;
+      background: white;
+      color: black;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .menu-item:hover {
+      background: #2e7d32;
+      color: white;
+    }
+    .menu-item i {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="https://www.videvo.net/videvo_files/converted/2016_08/preview/160721_PlasticBottles_01.mp421483.webm" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">EndPollution</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Welcome to EndPollution</h1>
+    <p>Empowering a cleaner future through smart plastic waste innovation</p>
+  </div>
+
+  <!-- Menu Icons -->
+  <div class="menu-container">
+    <div class="menu-item" onclick="location.href='investing.html'">
+      <i class="bi bi-cash-coin"></i><br>Investing
+    </div>
+    <div class="menu-item" onclick="location.href='government.html'">
+      <i class="bi bi-bank"></i><br>Government
+    </div>
+    <div class="menu-item" onclick="location.href='location.html'">
+      <i class="bi bi-geo-alt-fill"></i><br>Location
+    </div>
+    <div class="menu-item" onclick="location.href='scan.html'">
+      <i class="bi bi-camera"></i><br>Scan
+    </div>
+    <div class="menu-item" onclick="location.href='get-job.html'">
+      <i class="bi bi-briefcase-fill"></i><br>Get Job
+    </div>
+    <div class="menu-item" onclick="location.href='guidelines.html'">
+      <i class="bi bi-book"></i><br>Guidelines
+    </div>
+    <div class="menu-item" onclick="location.href='students.html'">
+      <i class="bi bi-mortarboard"></i><br>Students
+    </div>
+    <div class="menu-item" onclick="location.href='certificate.html'">
+      <i class="bi bi-award"></i><br>Certificate
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+KWIZERA Elissa <kwizeraelissa2008@gmail.com>
+4:10 PM (5 hours ago)
+to me
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EndPlastic App - Students</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: url('https://images.unsplash.com/photo-1600573471592-977fcbab3164') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #00ffcc;
+    }
+
+    .student-section {
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .info-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .info-title {
+      font-size: 1.5em;
+      color: #00ffcc;
+      margin-bottom: 10px;
+    }
+
+    .info-box p {
+      line-height: 1.6;
+      color: #e0f7fa;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .quiz-box {
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .quiz-title {
+      font-size: 1.3em;
+      color: #00ffcc;
+    }
+
+    .quiz-question {
+      margin: 15px 0;
+    }
+
+    .quiz-button {
+      background-color: #00ffcc;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .quiz-button:hover {
+      background-color: #00cc99;
+    }
+
+    .result {
+      font-size: 1.2em;
+      color: #00ffcc;
+      margin-top: 10px;
+    }
+
+    .resources {
+      margin-top: 30px;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .resource-list a {
+      color: #00ffcc;
+      text-decoration: none;
+      margin: 10px 0;
+      display: block;
+    }
+
+    .resource-list a:hover {
+      color: #00cc99;
+    }
+
+    .contact-form {
+      margin-top: 30px;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #00ffcc;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .contact-form button {
+      background-color: #00ffcc;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .contact-form button:hover {
+      background-color: #00cc99;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><i class="fas fa-graduation-cap"></i> Student Initiatives - EndPlastic App</h1>
+  <p>Empowering youth to lead the fight against plastic pollution through education and innovation.</p>
+</header>
+
+<section class="student-section">
+
+  <div class="info-box">
+    <div class="info-title">🎓 How Students Can Get Involved</div>
+    <p>Students can participate by forming eco-clubs, organizing clean-up drives, innovating recycling solutions, or creating awareness campaigns in schools and universities.</p>
+    <p><strong>Requirements:</strong> Passion, school permission, small funding (if needed), mentor support</p>
+    <p><strong>Steps:</strong> Form a group → Set a goal → Use EndPlastic resources → Launch and track your project</p>
+  </div>
+
+  <div class="info-box">
+    <div class="info-title">📹 Watch & Learn: Animated Education Video</div>
+    <p>Here's a short animated video to inspire and educate you about how plastic harms our environment and what students can do to stop it.</p>
+    <iframe src="https://www.youtube.com/embed/2Rc2IWCQcu8" title="Plastic Pollution Awareness" allowfullscreen></iframe>
+  </div>
+
+  <div class="info-box">
+    <div class="info-title">🌍 Student-Led Projects You Can Try</div>
+    <ul>
+      <li>Plastic-free school campaign</li>
+      <li>DIY eco-brick collection points</li>
+      <li>Art from waste competitions</li>
+      <li>School garden using recycled containers</li>
+    </ul>
+  </div>
+
+  <!-- Quiz 1 -->
+  <div class="quiz-box">
+    <div class="quiz-title">🧠 Test Your Knowledge: Plastic Prevention Methods</div>
+   
+    <div class="quiz-question">
+      <p>What is one effective way to reduce plastic pollution in schools?</p>
+      <button class="quiz-button" onclick="checkAnswer('recycling')">Recycling</button>
+      <button class="quiz-button" onclick="checkAnswer('incineration')">Incineration</button>
+      <button class="quiz-button" onclick="checkAnswer('burial')">Burial</button>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <!-- Additional Resources -->
+  <div class="resources">
+    <div class="info-title">📚 Additional Learning Resources</div>
+    <div class="resource-list">
+      <a href="https://www.plasticpollutioncoalition.org/" target="_blank">Plastic Pollution Coalition - Learn More</a>
+      <a href="https://www.nationalgeographic.com/environment/oceans/plastic-pollution/" target="_blank">National Geographic - Plastic Pollution</a>
+      <a href="https://www.earthday.org/campaigns/end-plastic-pollution/" target="_blank">Earth Day - End Plastic Pollution</a>
+    </div>
+  </div>
+
+  <!-- Contact Form -->
+  <div class="contact-form">
+    <div class="info-title">💬 Contact Us for More Info</div>
+    <p>If you have any questions or want to share your project with us, please fill out the form below:</p>
+    <form action="#" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+</section>
+
+<script>
+  function checkAnswer(answer) {
+    var resultElement = document.getElementById('result');
+    if (answer === 'recycling') {
+      resultElement.textContent = "🎉 Congratulations! Recycling is an effective way to reduce plastic pollution.";
+      resultElement.style.color = '#00ffcc';
+    } else {
+      resultElement.textContent = "❌ Oops! That's not correct. Try again!";
+      resultElement.style.color = '#ff6666';
+    }
+  }
+</script>
+
+</body>
+</html>
+
+
+Attachments area
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Get Job - EndPollution</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e8f5e9;
+      color: #1b5e20;
+      background-image: url(''); /* Replace with the URL of your image */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .navbar {
+      background-color: rgba(46, 125, 50, 0.8); /* Semi-transparent green navbar */
+    }
+    .navbar-brand {
+      color: white;
+      font-weight: bold;
+    }
+    .content {
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+      border-radius: 8px;
+    }
+    .section-title {
+      color: #2e7d32;
+      font-weight: bold;
+      margin-top: 1.5rem;
+    }
+    .card {
+      border: none;
+      background-color: #c8e6c9;
+      margin-bottom: 1rem;
+    }
+    .btn {
+      background-color: #2e7d32;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      text-align: center;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #1b5e20;
+    }
+    .btn-large {
+      font-size: 1.5rem;
+      padding: 20px 40px;
+      width: 100%;
+      background-color: #ffeb3b;
+      color: #1b5e20;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .btn-large:hover {
+      background-color: #c8e6c9;
+      color: #1b5e20;
+    }
+    .job-ideas {
+      max-height: 300px;
+      overflow-y: auto;
+      background-color: #f1f8e9;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">⬅ Back to Home</a>
+    </div>
+  </nav>
+
+  <div class="container content">
+    <h2>💼 Get a Job in Green Innovation</h2>
+    <p>Find job opportunities with companies, startups, and NGOs working on plastic waste solutions, sustainability, and green innovation.</p>
+
+    <h4 class="section-title">🌱 Current Job Listings</h4>
+    <div class="card p-3">
+      <p><strong>Position:</strong> Plastic Waste Management Specialist</p>
+      <p><strong>Company:</strong> Green Solutions Corp</p>
+      <p><strong>Location:</strong> Kigali, Rwanda</p>
+      <p><strong>Job Description:</strong> Lead projects on plastic waste collection, sorting, and recycling.</p>
+      <a href="job-details.html" class="btn">View Details</a>
+    </div>
+
+    <div class="card p-3">
+      <p><strong>Position:</strong> Environmental Data Analyst</p>
+      <p><strong>Company:</strong> EcoTech Solutions</p>
+      <p><strong>Location:</strong> Kigali, Rwanda</p>
+      <p><strong>Job Description:</strong> Analyze environmental impact data to track plastic waste trends and solutions.</p>
+      <a href="job-details.html" class="btn">View Details</a>
+    </div>
+
+    <h4 class="section-title">💡 Job Ideas</h4>
+    <div class="job-ideas">
+      <p><strong>1. Recycled Plastic Product Designer:</strong> Create products made entirely from recycled plastic waste, such as fashion accessories or home decor.</p>
+      <p><strong>2. Plastic Waste Collection Manager:</strong> Oversee teams that gather and sort plastic waste for recycling or upcycling in communities.</p>
+      <p><strong>3. Environmental Awareness Coordinator:</strong> Educate communities and organizations about reducing plastic use and the benefits of recycling.</p>
+      <p><strong>4. Green Technology Developer:</strong> Develop new technologies to enhance plastic recycling processes and reduce waste.</p>
+      <p><strong>5. Waste-to-Energy Project Coordinator:</strong> Lead projects that convert plastic waste into energy for local communities.</p>
+    </div>
+
+    <h4 class="section-title">🚀 Apply for Jobs</h4>
+    <p>If you're interested in working in the green sector, submit your CV and application here:</p>
+    <a href="apply-form.html" class="btn">Apply Now</a>
+
+    <h4 class="section-title">🔍 Explore More Opportunities</h4>
+    <p>Check out more companies offering jobs in green innovation, waste management, and sustainability:</p>
+    <a href="job-board.html" class="btn">Job Board</a>
+
+    <h4 class="section-title">💡 Advice You</h4>
+    <p>Get personalized advice on your career in green innovation:</p>
+    <a href="advice.html" class="btn-large">Get Advice</a>
+  </div>
+
+</body>
+</html>
+
+
+KWIZERA Elissa <kwizeraelissa2008@gmail.com>
+3:37 PM (5 hours ago)
+to me
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Government - EndPollution</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e8f5e9;
+      color: #1b5e20;
+    }
+    .navbar {
+      background-color: #2e7d32;
+    }
+    .navbar-brand {
+      color: white;
+      font-weight: bold;
+    }
+    .content {
+      padding: 2rem;
+    }
+    .section-title {
+      color: #2e7d32;
+      font-weight: bold;
+      margin-top: 1.5rem;
+    }
+    .card {
+      border: none;
+      background-color: #c8e6c9;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">⬅ Back to Home</a>
+    </div>
+  </nav>
+
+  <div class="container content">
+    <h2>🌍 Government</h2>
+    <p>Empowering national and local governments to implement plastic waste policies, support innovation, and drive sustainable development.</p>
+
+    <h4 class="section-title">📜 Regulations & Policy Support</h4>
+   <div class="regulations-container">
+  <!-- Top Title -->
+  <h1>Regulations & Policy Support</h1>
+
+  <!-- Overview Section -->
+  <section class="overview">
+    <h2>📘 Plastic Pollution Laws in Rwanda and Globally</h2>
+    <p>Rwanda banned plastic bags in 2008 and extended restrictions in 2019 to cover more single-use plastics. Globally, initiatives like the UN Plastics Treaty and African Union directives support similar goals.</p>
+    <button>Learn More</button>
+  </section>
+
+  <!-- Swipeable Laws Section (You can later replace this with a slider) -->
+  <section class="key-laws">
+    <h2>⚖️ Key Laws & Provisions</h2>
+
+    <div class="card">
+      <h3>❌ Banned Items</h3>
+      <ul>
+        <li>Plastic bags</li>
+        <li>Plastic straws & cutlery</li>
+        <li>Plastic packaging</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>✅ Allowed Alternatives</h3>
+      <ul>
+        <li>Biodegradable bags</li>
+        <li>Paper and fabric packaging</li>
+        <li>Reusable containers</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>📅 Compliance Timeline</h3>
+      <p>Stay updated with grace periods and deadlines for phasing out banned plastics.</p>
+    </div>
+  </section>
+
+  <!-- How to Comply -->
+  <section class="compliance">
+    <h2>📋 How to Comply</h2>
+    <ol>
+      <li>Register your business with REMA</li>
+      <li>Switch to government-approved alternatives</li>
+      <li>Get your compliance certificate</li>
+      <li>Stay informed with notifications</li>
+    </ol>
+    <button>Apply for Certificate</button>
+    <button>Find Suppliers</button>
+  </section>
+
+  <!-- Report Violations -->
+  <section class="report">
+    <h2>🚨 Report Violations</h2>
+    <form>
+      <label>Location:</label>
+      <input type="text" placeholder="Enter location">
+      <label>Upload Photo:</label>
+      <input type="file">
+      <label>Description:</label>
+      <textarea placeholder="Describe the issue..."></textarea>
+      <label><input type="checkbox"> Report Anonymously</label>
+      <button type="submit">Submit Report</button>
+    </form>
+  </section>
+
+  <!-- Advocacy Section -->
+  <section class="advocacy">
+    <h2>📣 Advocate for Stronger Policies</h2>
+    <ul>
+      <li>Sign petitions for new laws</li>
+      <li>Share awareness posters</li>
+      <li>Join policy discussions</li>
+    </ul>
+    <button>Start a Petition</button>
+    <button>Share Awareness Poster</button>
+  </section>
+
+  <!-- Policy News & Alerts -->
+  <section class="news">
+    <h2>🔔 Policy News & Alerts</h2>
+    <ul>
+      <li>📰 New inspection policy for schools starts June 1</li>
+      <li>📰 Rwanda signs UN plastics treaty agreement</li>
+    </ul>
+    <label><input type="checkbox"> Enable Notifications</label>
+  </section>
+
+  <!-- Education Section -->
+  <section class="education">
+    <h2>🎓 Learn More</h2>
+    <ul>
+      <li><a href="#">Watch: Why Plastic Bans Matter 🎥</a></li>
+      <li><a href="#">FAQs: Can I still use bottles? ❓</a></li>
+      <li><a href="#">Take Quiz: Know Your Laws 🧠</a></li>
+    </ul>
+  </section>
+
+  <!-- For Policymakers -->
+  <section class="policy-support">
+    <h2>🏛️ For Policymakers & Officials</h2>
+    <p>Explore stats, templates, and policy ideas for your district.</p>
+    <button>Download Policy Toolkit</button>
+    <button>Contact Us</button>
+  </section>
+</div>
+
+
+    <h4 class="section-title">🤝 Public-Private Partnerships</h4>
+    <div class="card p-3">
+      <p>Collaborate with innovators and investors to support scalable recycling and waste management solutions.</p>
+    </div>
+
+    <h4 class="section-title">📈 Reporting & Impact Dashboard</h4>
+    <div class="card p-3">
+      <p>View national reports, local data, and statistics on plastic waste collection, recycling rates, and policy impact.</p>
+    </div>
+
+    <h4 class="section-title">🛠️ Government Tools</h4>
+    <div class="card p-3">
+      <ul>
+        <li>Policy builder templates</li>
+        <li>Funding request forms</li>
+        <li>Data upload portals</li>
+        <li>Guidance for implementing circular economy models</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Partnership Access | EndPollution</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2f8b35;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #2f8b35;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2f8b35;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>EndPollution: Private Partnership Access</h1>
+</header>
+
+<div class="container">
+    <div id="private-partnership">
+        <h2>Partner with Us to Fight Plastic Pollution</h2>
+        <p>
+            EndPollution invites businesses, startups, tech companies, recyclers, manufacturers, and innovators to become active partners
+            in the mission to end plastic pollution. Through our <strong>Private Partnership Access Portal</strong>, you gain:
+        </p>
+
+        <ul>
+            <li><strong>Real-time access to pollution data</strong> for research, strategy, and sustainability reporting.</li>
+            <li><strong>API integration</strong> for waste tracking, recycling input, and material reuse statistics.</li>
+            <li><strong>Investment opportunities</strong> in smart recycling infrastructure and green startups.</li>
+            <li><strong>Brand visibility</strong> as an eco-conscious leader through partnership showcases.</li>
+            <li><strong>Insights into community needs</strong> to align CSR (Corporate Social Responsibility) with impact.</li>
+            <li><strong>Access to government incentives</strong>, green certifications, and co-branded campaigns.</li>
+        </ul>
+
+        <p>
+            By partnering with EndPollution, you contribute to a <strong>circular economy</strong>, create green jobs, and help design
+            a future free of plastic pollution. Join us in making a tangible, lasting difference.
+        </p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 EndPollution | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
+
